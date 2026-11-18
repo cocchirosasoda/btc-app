@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="BTC 15m">
+<meta name="theme-color" content="#0b0d10">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAQWUlEQVR4Xu2da4xcxZXHb1Xdftx+eLpnxuP2PEwSE15BixkbiPmyrAJ2iILEwwlo7SUR9kariP2QECnB7LIKBvL4kP2SbJACkQADkWMnkQIJTkABaZWQBI8dhMRjIQSPZzwee9w90497+/atqtW5tz0z2GOmq/ve7tuT8/sElvF4pv/8q06df50iyXRGQ5CloPhjQc4HigNBcSDqoHMg6ByIOugcCDoHog46B4LOgaiDzoGgcyDqoHMg6ByIOugcCDoHog46B4LOgaiDzoGgcyDqoHMg6ByIOugcCDoHog46B4LOgaiDzoGgcyDqoHMg6ByIOugcCDoHog46B4LOgaiDzoGgcyDqoHMg6ByIOugcCDoHoo6u/p8gbYcSQokUcv4L1/910a8EAYoj1BBGJReiZEvOCaUaJfDXFVIKQRijiYj3GwL6HlAcYYUSTWpOwWSpaGLzOmN0KH7JaroqDtqYs6w3T5pjE9aRSfgNq+IaAcX4/p0QHG8dRhiRlqNJuerWy7P/Mhq7aDU1dHAITwAEHEWYTvXtk/knx+Z+9rpGCInrGvdZHyiO8MGIKNn6mvTah7emrr9QWo6wapJLQgg4hKZpUpNSEkZoPELieumFd47vPuicKNJU1F99oDhChqsM44q1Q/9zs742zQsWoaS+1TgX2HxIlok7x4sTX/6F+Zfj/uoDxREmCJG2w/qTHzmwQx9I8WKV6MsfRElHsHTMmS797ba9/FSZRHVN+rO+LP+1kXYipVz70FbwjMaUATsQnfJiVV+bXvvQVumTLDxQHKGBUT5n9dx6eer6C2E1acAz5gF9FKzU9Rf23Ho5n7M05s/H6s+fgvgAFzQVze4YlZYD+wxF4FjMcrI7Rt1thz8nHyiOcECJMGvGhsH4xf3CrJ13B/ohuH9C/OJ+Y8Ngk3/COaA4QgEhRDrcGB0iRqTpfQPUt0bEGB2SDoe6t2VQHKHAPbeg8UsGJBdNf66gMC7ilwzAmbofO1MUR2gghPbE6megTSM1uiqm+WEbWK2ECUo0x5+NpF+gc4QDSqRd02jLHwfRxFwVD8FWEIzyfDm7Y2Pi6iFRtpspVVy8jYv15nQrG5fFtCxVpDXc8yszu300B+eb0FRrGtiQmjVzbILoDDekXQ+JMCdfXnXTpWu/fSN4Bhf1vmsTCEmNiPXWKfPIJDUivsQ70Dk6BnhGvmJsHMk9sEVUavBxtlBlSCFJXM/vHRMlG4/PuxvCqFMw41cOjTy2jaajssab3mrAbsMRLBMvvfDO7M9eh2AYHp93L4RRXqoao0MjP95GU1FpOq0qIx1zjheP33ew6QO0JcFlpe24yohekBl59IwyWLNH3UJ6nuFMlya+/AtnqghhQT/ORj0wYNxeGBQULBMf/O+bWCbOS1Wi1F6XEsqZ+ZigEWxMEMXRRiiRpkPT0ZHHtsWvHOQFU00ZQpKYTqJsPmBsvbUQMPY3IIjO0V4okTVOe2IjP7rNGB1y8qZSnEdyyAJW35mpTczJSs16Y9q7msBLdv1qgt/Rc1xW2gUhsD+wnMFHbjWuGnFOlVWVoWcM89DE+JcO8JMV0Bnn3qUmPWMsXFnwG1xWgocQTUpRtnMPfzp53UebUAZLxcyxifFd+0XRZpk4HGl4tyOFDO66GzpH8BDoeYgKKCN75yifqSh5hsZBGfb7hfGdB0TRJoYu3c7t4nuzwYGlbMAQIqpO7sGt2TtHnVNltaqVQ7KLz1qTX/0lL5hwKB7AxuJDQHEECNGpM1vuv/va3rs2qa4mUJsYuijZ43fttw5PslQs0BVkSVAcQQEH5Ply745N/Xdvdk6q7UBBGREmitXxnfvNwxPM23W2HRRHMEDrpJzdvjH30FZhOWodNSGhc8bIsX/7uXnoGNQjHUqIraxqhWgw50QjXpoB8g0abOlbCUk0AawmeTP7z6O5h7dCI16qtFul1CihicjUvc9X/jiuZxOdUsbKqlYo0bgURQuk4F0XcyAeQZMx2AYGML5iSVxlVBLXrFvzwA31RnzjN5QkKJomo1O7D+afHmOZZAeVsYLEQYko2zQRTd94ceLqkej6Pk3T7HdnKn8aL//v+6Jkw+my15gIElBGwTQ2Dg8/cgtUFlwoKMMN+lEjMnXfwfxTh/RMsiP7jMWshFv29Q74puHcN2+IXbrasxD4Jl3DqL4xfWLPi5U/HIVSkNHgLAT+GnNWfMNgvRFvqTXipSMia1LT33l5+nsvRbKpznqGR9eLw7Px1HXrhx+9jVDCy7a32/ACt3D5IhElhBSeOXJiz4uwnEfdETl+4111j106sO7J2+sRDZVGvHSE3p/MP35o6r9+61fIr3W6u1qZt/HB731WE5KXbcIotDrdgSfeP0uzJsxa9gsb1+29gyaivKh2gb0hGBEVtxH/3c+wTBy2GirK0LgEZTwxNvUfB2nMz0BGi3SxOOrK8JJ2q2LS5kt3wClMS3JOV4xrRtY9eXvssjXQK1cZcLAMENHwGvGfi102wOcamrgyj3QE7YmBMnY/TxNRtxGz3FdsF90qjgVlNJa0c9O8Jtj+E7cb14yodszPCyWyWo9oGKODfFbNlrzVpPzSe6CMpKeM0EijS4e3LKGMBmzc3RZYNBFZt/eO7PYNtXzJNZVmI3rwwyPSESSqDz+6rZmIhiP0rGH+eXzya89CvA9mS4ZIGV0pjuaUUd9+Mwo5b0fk9mwZ+Op1olKDzWnj5xAfqPPciEbFXnP/pxJXDzun1ZYqCO9kDWjE79wvZqskwoIro5qmy5aVVpRRB5IyQlRqA1//x9yeLRoXsnaezcqHMN+I/9aNmTuucE5VSEThJwnKSMWsw5OgDLcRH0JldJlz+KCMuoFALVM7Ucpu39BkCUOIsGq5h9xG/GnViAacdPGCNfmVX8Lsr7Y34htHQe+dxTdlnMHrgDRRwniN+IFv/FPvF91GvFJ8HCIabiN+1377/QJLxfy6gBQE3SEO35VRd5BzS5jlPun5RnyTEY24LooQ0TDHJjoS0VCiC8QRkDIW9LG4hCl4Jcx5foaLG/FmTa3SgYgGlTY/tgsiGvVgcLgJuzgCVcbiEkbWRO7Brf1f2uw22aFMPeuDW5iVsNCIb/izdRvxxIie+OYLlY5GNJQItTjaoIz5EkYTAgLiD2zJPbhFlG2oeBednZw9K0E1ouE14u99vrDvL52NaCgR3sZb+5Qxj4R8Hu2Jl1/66+Q9z/K8CdsCR5AIzFeJjw7B7dZERO1GvHusBcoITSO+cULqHK0qQ7pZCtXzRgJdfl4wU9evH3l0W/SCLAwgj+lOvoVZCUKyntjU/b+BiEa28xENJcIojlaVIaSmU5ox4JtTD4DBVz9Vif9D7oL9243RwdpMPnHVMPT21GclwBX4/kT+8bH8E2Ms08nAX3OEbllpVRlcklTEmSzO/vz13p1XEZ0Ky1m2QD0XyQU1IqJsz/zw95k7rox+JCuKdiMdnAW4YH1uI/4+t6nmPqLTXYRLHD4owz1iOrbrQPnV91LXrh/6wc0sm+Bzas3SOp4DJaKiYkMcVaUF4zXV8k8dCWe7tUFCtKxARVAwIZ8x34VvoNe66P/UhVtAlVePRfoy5d8fPXrnvuob0yzbVLrfSyzPWhA6VFJGjeurk3PPvnH83l9DdjVkjfjGCYtzuIfZZWPjyMLq3qwy6kdMNbfKmLNYNjH8yC0JHzMcHwrsM7KG5bVbK7VwtlsbJBTO4U1PW3XTJ5qchLTIM+rKcC8luO9bxUXFPrrjJ/mnjkTWpIK+wyI5rCZ1ZRTtrlZGKALGrjLK2e2jMIuzUlM7RdAggDl/p3RBGYtxIznS5v3/fm3/3Zvh/plQWyYapN6If+34QiO+vfeefafDy8oZZWyEM+mSezlMZXVfXhke7qObzmy5d/um3MNbpeVI+wMHoD4A7yzBrIT3t+0VxSpENLpcGR3Oc3xAGXClIBhluJcUNCH1TKrw9OHxL+6D60/pqJ8XFDo9KyEgOrbnOFsZSt2KRlaTc+GCZYzS794d33XA/luepeFo3IcfawhmJQREZ5aVDijjDN7tI5Y1hn90W+Jq5fFcZ+PNSijb4/96wBxzG/G+CC4cdMA5OqiM+iToVAxGX3xhX+GZI/rqZPMljNeIj+uT9zxrHhpfYcrowJ6js8rwgOdIYrqs8eNf//XMD19xL4yod2HcddC9Ef98+eW/QlNtBXlGfR+fTGfa5mEtKqPe73AnIS1dtSoxX8Ls2ARvnSiVMDArwW3E74Yb8SyTWAG1ybm0b1lpXRmwHPilDK+EkVLPJAtPqZcwUtK4Ph/RWJHKaN+y0qoynDMTF+/6qeUFMH3xcAknJaolDByDrk6e+v4fTu99tesiGkq0Y1lpXRlwbRC6FQd4wU1n+T1DYYkShi19UxLarRkj//ThqftDNCshIAJfVvxTxn5RrAahjLNLmKehhIFn0hzhFjLuPCBvVjAXkTXp0u/endodrlkJARGsc/iqDPfaYKBn0u7seo2L1A0XDXzjuuj6Xlnl0nZAHzqD5wqkVnjmyPR3XtKqHMaOqcfMuosAxdFlyqhXb3DdgM+ZkaGenps/kdi8LvqxPhJl/FTZen1q7ldvlV9+j8QY0VnYbsQHQVDi6EplnIEwKqqOMG0S0fW+hLcj4bPwPApNuS+Kh2xWQkAEIo6uVsa8hcDLBFLCQiPhOyI6hSFjK30pWYz/Q2pXgjK8aXPu/sYdEAVjVXwvkcKPz+JYIcpYDCik22LjPuFrKQuZrgoM/G5irLP7OOqZ84wzI00CrU2Q5fBPHIzyWTPz+Sty3/q08sBvVEYo8UkcBF7EjF20es1/fkqayi9vo2eEE5/EQYmwnd6dV7FeQ1SVxzrjahJO/BAHXALgem8i+ckRUa4p3T1EzwgzvoiDSMuJfrxPz6XhVKDhkSaojJDjhzjcuC9Lx0hUYW43KiP8+CQORnixCj2qxgYCozK6Aj/EISWJ6/b/zThTRbgAuNyJkXdnsD68tw29VqRZfBGHRnTmnK6UXxmnycgyx8xcsmTUHFs0vBdPusKKH+LQ3FFaUf30Y3/mp00aO/8Yb3fcoqjUYOJWuIf3Iv5lSCW8nVx9++SJPS/Cy0gRCjGqxX1tKb3JazQZPfHAi/a7Mywd6uG9iH/igIJFsB6jsO+1yXuek7aAGIQbnfKuDJEo0/sS0haT9zxX2Pca7fEpIYwEic95DngEb9aMXrS6d+em5CfX6bk0XB+qOs5UsfzK0dOPvWq/fZL1dOZ9ZUQVn8UBAQhGhVkTVUfvS8Qu7KNpuHtYfWfGmanQmE6N5XasSGjwXxzuYkXgNegahz4LlxojNKaTCPt7S1J1Oz6HfeoIN8/P4Cqp+26NF6zyY94B0kaCEYfH300Qd6Xi0zkHshJBcSDnBcWBoDgQddA5EHQORB10DgSdA1EHnQNB50DUQedA0DkQddA5EHQORB10DgSdA1EHnQNB50DUQedA0DkQddA5EHQORB10DgSdA1EHnQNB50DUQedA0DkQddA5EHQORB10DgSdA1EHnQNB50DUQedA0DkQddA5EHQORB10DgSdA1EHnQNB50DUQedA0DkQddA5EHQORJ3/B9uoIIMEdTeqAAAAAElFTkSuQmCC">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<title>BTC 15m</title>
+<style>
+  :root { --bg:#0b0d10; --card:#14181d; --line:#232a31; --text:#e8edf2; --dim:#8a96a3;
+          --up:#2fd67b; --down:#ff5c6c; --flat:#d4ab2a; --blue:#5aa9ff; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body { background:var(--bg); }
+  body { margin:0; color:var(--text); font:15px/1.4 -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+         padding: calc(env(safe-area-inset-top) + 12px) 14px calc(env(safe-area-inset-bottom) + 84px); }
+  .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  .top h1 { font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); margin:0; font-weight:600; }
+  .pill { font-size:11px; font-weight:700; padding:3px 8px; border-radius:20px; border:1px solid var(--line); color:var(--dim); }
+  .pill.live { color:var(--up); border-color:#1f5a3a; } .pill.relay { color:var(--blue); border-color:#244a6e; }
+  .pill.manual { color:var(--flat); border-color:#5c4b14; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; margin-bottom:12px; }
+  .label { color:var(--dim); font-size:12px; text-transform:uppercase; letter-spacing:.06em; font-weight:600; }
+  .big { font-size:52px; font-weight:800; letter-spacing:-.03em; line-height:1.05; margin-top:4px; }
+  .UP { color:var(--up); } .DOWN { color:var(--down); } .NO { color:var(--flat); }
+  .sub { color:var(--dim); font-size:13px; margin-top:6px; }
+  .row { display:flex; justify-content:space-between; gap:10px; padding:8px 0; border-bottom:1px solid var(--line); }
+  .row:last-child { border-bottom:0; }
+  .row span:first-child { color:var(--dim); }
+  .num { font-variant-numeric:tabular-nums; font-weight:600; text-align:right; }
+  .split { display:flex; justify-content:space-between; align-items:flex-end; }
+  .timer { font-size:30px; font-weight:700; font-variant-numeric:tabular-nums; }
+  .bar { height:8px; background:var(--line); border-radius:8px; overflow:hidden; margin:12px 0 2px; position:relative; }
+  .bar > div { height:100%; background:linear-gradient(90deg,var(--down),var(--flat) 50%,var(--up)); }
+  .bar::after { content:""; position:absolute; left:50%; top:0; bottom:0; width:2px; background:var(--bg); }
+  .verdict { font-size:24px; font-weight:800; margin:6px 0 2px; }
+  input { width:100%; background:#0e1115; color:var(--text); border:1px solid var(--line); border-radius:10px;
+          padding:10px; font:inherit; font-variant-numeric:tabular-nums; }
+  .inputs { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; }
+  .inputs label { font-size:12px; color:var(--dim); display:block; margin-bottom:4px; }
+  .full { grid-column:1 / -1; }
+  button.btn { background:#1c232b; color:var(--text); border:1px solid var(--line); border-radius:10px; padding:10px 12px;
+               font:inherit; font-weight:600; }
+  .nav { position:fixed; left:0; right:0; bottom:0; display:flex; background:rgba(11,13,16,.96); border-top:1px solid var(--line);
+         padding: 8px 8px calc(env(safe-area-inset-bottom) + 8px); backdrop-filter: blur(10px); }
+  .nav button { flex:1; background:none; border:0; color:var(--dim); font:inherit; font-size:12px; font-weight:600; padding:6px 0; }
+  .nav button b { display:block; font-size:19px; margin-bottom:2px; }
+  .nav button.on { color:var(--text); }
+  .bars { display:flex; align-items:flex-end; gap:3px; height:110px; margin-top:12px; }
+  .bars div { flex:1; background:#2b3a48; border-radius:4px 4px 0 0; position:relative; }
+  .bars div.hot { background:var(--up); }
+  .bars span { position:absolute; bottom:-18px; left:0; right:0; text-align:center; font-size:10px; color:var(--dim); }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  td,th { padding:7px 2px; border-bottom:1px solid var(--line); text-align:left; font-weight:500; }
+  th { color:var(--dim); font-size:12px; }
+  td.r, th.r { text-align:right; font-variant-numeric:tabular-nums; }
+  .err { color:var(--down); font-size:13px; margin:6px 0; }
+  .loading { text-align:center; padding:60px 10px; color:var(--dim); }
+  .prog { height:6px; background:var(--line); border-radius:6px; overflow:hidden; margin:14px auto; max-width:260px; }
+  .prog div { height:100%; width:0; background:var(--blue); transition:width .2s; }
+  .pat { padding:9px 0; border-bottom:1px solid var(--line); }
+  .pat:last-child { border-bottom:0; }
+  .strength { display:inline-block; height:6px; border-radius:4px; background:var(--blue); vertical-align:middle; margin-left:6px; }
+  .note { color:var(--dim); font-size:12px; margin-top:10px; line-height:1.5; }
+  a { color:var(--blue); }
+</style>
+</head>
+<body>
+<div class="top"><h1>Kalshi · BTC 15-min</h1><span id="src" class="pill">…</span></div>
+
+<div id="boot" class="loading">
+  <div id="bootmsg">Loading a week of BTC data…</div>
+  <div class="prog"><div id="bootbar"></div></div>
+  <div class="note">First load takes ~15 seconds. Later opens are quicker.</div>
+</div>
+
+<!-- NOW -->
+<section id="v-now" style="display:none">
+  <div class="card">
+    <div class="label">Most likely this market</div>
+    <div id="side" class="big">—</div>
+    <div class="bar"><div id="pbar" style="width:50%"></div></div>
+    <div id="sidesub" class="sub"></div>
+  </div>
+
+  <div class="card">
+    <div class="split">
+      <div><div class="label">Closes in</div><div id="timer" class="timer">--:--</div></div>
+      <div style="text-align:right"><div class="label">Minute</div><div id="minute" class="timer">-</div></div>
+    </div>
+    <div class="row" style="margin-top:8px"><span>BTC now</span><span id="spot" class="num">-</span></div>
+    <div class="row"><span>Price to beat</span><span id="strike" class="num">-</span></div>
+    <div class="row"><span>Gap</span><span id="gap" class="num">-</span></div>
+  </div>
+
+  <div class="card">
+    <div class="label">Is it worth buying?</div>
+    <div id="verdict" class="verdict">—</div>
+    <div id="verdictsub" class="sub"></div>
+    <div class="row" style="margin-top:8px"><span>Kalshi YES / NO ask</span><span id="asks" class="num">-</span></div>
+    <div class="row"><span>Fair price (app's odds)</span><span id="fair" class="num">-</span></div>
+    <div id="manualbox">
+      <div class="inputs">
+        <div><label>YES ask (¢)</label><input id="in-yes" inputmode="numeric" placeholder="e.g. 55"></div>
+        <div><label>NO ask (¢)</label><input id="in-no" inputmode="numeric" placeholder="e.g. 47"></div>
+        <div class="full"><label>Price to beat (optional, from Kalshi)</label><input id="in-strike" inputmode="decimal" placeholder="leave blank to use Coinbase"></div>
+      </div>
+    </div>
+  </div>
+  <div id="err" class="err"></div>
+</section>
+
+<!-- PATTERNS -->
+<section id="v-pat" style="display:none">
+  <div class="card">
+    <div class="label">Patterns this week</div>
+    <div id="patverdict" class="verdict" style="font-size:20px">—</div>
+    <div id="patsub" class="sub"></div>
+    <div id="patlist" style="margin-top:8px"></div>
+  </div>
+  <div class="card">
+    <div class="label">Hit rate by minute into the market</div>
+    <div class="sub">Tested on recent markets the app didn't learn from. Green = 80%+.</div>
+    <div id="minbars" class="bars"></div>
+    <div style="height:18px"></div>
+  </div>
+  <div class="card">
+    <div class="label">Hit rate by confidence</div>
+    <table id="conftable"></table>
+    <div class="note">When the app says 80%, it should hit about 80% of the time. If the "hit" column matches the "said" column, the odds can be trusted.</div>
+  </div>
+  <div class="card">
+    <div class="label">Market right now</div>
+    <div class="row"><span>1-hour trend</span><span id="r-trend" class="num">-</span></div>
+    <div class="row"><span>RSI (14-min)</span><span id="r-rsi" class="num">-</span></div>
+    <div class="row"><span>Expected 15-min swing</span><span id="r-vol" class="num">-</span></div>
+    <div class="row"><span>Up markets this week</span><span id="r-up" class="num">-</span></div>
+  </div>
+</section>
+
+<!-- RECORD -->
+<section id="v-rec" style="display:none">
+  <div class="card">
+    <div class="label">Most-likely calls (logged at minute 10)</div>
+    <div class="row"><span>Hit rate</span><span id="s-lean" class="num">-</span></div>
+    <div class="label" style="margin-top:14px">Value buys (only when worth it)</div>
+    <div class="row"><span>Buys</span><span id="s-buys" class="num">-</span></div>
+    <div class="row"><span>Won</span><span id="s-won" class="num">-</span></div>
+    <div class="row"><span>Profit per 1 contract, after fees</span><span id="s-pnl" class="num">-</span></div>
+    <div class="note">The app only logs while it's open on your phone. Judge it by profit after 100+ buys, not by hit rate.</div>
+  </div>
+  <div class="card"><table id="logtable"></table></div>
+  <button class="btn" onclick="clearLog()">Clear record</button>
+</section>
+
+<!-- SETTINGS -->
+<section id="v-set" style="display:none">
+  <div class="card">
+    <div class="label">Kalshi relay URL</div>
+    <div class="sub">Only needed if the top-right badge says MANUAL. Paste your Cloudflare Worker link (see README).</div>
+    <div style="margin-top:10px"><input id="in-relay" placeholder="https://kalshi-relay.yourname.workers.dev"></div>
+    <div class="label" style="margin-top:16px">Minimum edge to buy (¢ per contract, after fees)</div>
+    <div style="margin-top:8px"><input id="in-edge" inputmode="numeric" placeholder="3"></div>
+    <div style="margin-top:12px"><button class="btn" onclick="saveSettings()">Save</button> <span id="saved" class="sub"></span></div>
+  </div>
+  <div class="card">
+    <div class="sub">BTC data: Coinbase. Markets: Kalshi <code>KXBTC15M</code>.
+      <a href="https://kalshi.com/markets/kxbtc15m">Open Kalshi</a></div>
+    <div style="margin-top:10px"><button class="btn" onclick="relearn(true)">Reload data &amp; relearn</button></div>
+  </div>
+</section>
+
+<nav class="nav">
+  <button id="n-now" class="on" onclick="go('now')"><b>◎</b>Now</button>
+  <button id="n-pat" onclick="go('pat')"><b>∿</b>Patterns</button>
+  <button id="n-rec" onclick="go('rec')"><b>✓</b>Record</button>
+  <button id="n-set" onclick="go('set')"><b>⚙</b>Settings</button>
+</nav>
+
+<script>
+/* BTC 15-minute engine: data, pattern features, walk-forward learning, live calls.
+   Runs in the phone's browser. Also loadable in Node for testing. */
+(function (root) {
+  "use strict";
+  const CB = "https://api.exchange.coinbase.com/products/BTC-USD";
+  const KALSHI = "https://api.elections.kalshi.com/trade-api/v2";
+  const SERIES = "KXBTC15M";
+  const WIN = 900; // seconds per market
+
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const clip = (p) => Math.min(1 - 1e-4, Math.max(1e-4, p));
+  const logit = (p) => Math.log(p / (1 - p));
+  const sigm = (z) => 1 / (1 + Math.exp(-z));
+  function Phi(x) { // normal CDF
+    const t = 1 / (1 + 0.2316419 * Math.abs(x));
+    const d = 0.3989423 * Math.exp(-x * x / 2);
+    const p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+    return x > 0 ? 1 - p : p;
+  }
+  const fee = (price) => Math.ceil(0.07 * price * (1 - price) * 100 - 1e-9) / 100; // Kalshi taker fee
+
+  async function getJSON(url) {
+    const r = await fetch(url, { cache: "no-store" });
+    if (!r.ok) throw new Error("HTTP " + r.status + " from " + new URL(url).host);
+    return r.json();
+  }
+
+  // ---------- data ----------
+  async function fetchCandles(minutes, onProgress) {
+    return toGrid(await fetchRaw(minutes, onProgress));
+  }
+
+  // Raw Coinbase candles [t, low, high, open, close, vol], newest `minutes` minutes.
+  async function fetchRaw(minutes, onProgress) {
+    const out = new Map();
+    const now = Math.floor(Date.now() / 60000) * 60;
+    const pages = Math.ceil(minutes / 300);
+    for (let p = 0; p < pages; p++) {
+      const end = now - p * 300 * 60, start = end - 299 * 60;
+      const url = `${CB}/candles?granularity=60&start=${new Date(start * 1000).toISOString()}&end=${new Date(end * 1000).toISOString()}`;
+      let rows;
+      for (let tries = 0; ; tries++) {
+        try { rows = await getJSON(url); break; } catch (e) { if (tries >= 2) throw e; await sleep(800); }
+      }
+      for (const r of rows) out.set(r[0], r);
+      if (onProgress) onProgress((p + 1) / pages);
+      await sleep(120);
+    }
+    return [...out.values()];
+  }
+
+  // Put candles [t, low, high, open, close, vol] on an exact 1-minute grid, forward-filling gaps.
+  function toGrid(rows) {
+    rows.sort((a, b) => a[0] - b[0]);
+    const g = { t: [], o: [], c: [], v: [] };
+    if (!rows.length) return g;
+    const byT = new Map(rows.map((r) => [r[0], r]));
+    let last = rows[0][4];
+    for (let t = rows[0][0]; t <= rows[rows.length - 1][0]; t += 60) {
+      const r = byT.get(t);
+      g.t.push(t);
+      g.o.push(r ? r[3] : last);
+      g.c.push(r ? r[4] : last);
+      g.v.push(r ? r[5] : 0);
+      if (r) last = r[4];
+    }
+    return g;
+  }
+
+  async function spot() { return parseFloat((await getJSON(`${CB}/ticker`)).price); }
+
+  // Kalshi's API may refuse browser requests (CORS). The app then falls back to manual entry.
+  async function kalshiMarket(base) {
+    const d = await getJSON(`${(base || KALSHI).replace(/\/$/, "")}/markets?series_ticker=${SERIES}&status=open&limit=20`);
+    const now = Date.now();
+    const ms = (d.markets || []).filter((m) => Date.parse(m.close_time) > now);
+    if (!ms.length) return null;
+    ms.sort((a, b) => Date.parse(a.close_time) - Date.parse(b.close_time));
+    const m = ms[0];
+    const px = (k) => m[k + "_dollars"] != null && m[k + "_dollars"] !== "" ? +m[k + "_dollars"] : (m[k] ? m[k] / 100 : null);
+    return { ticker: m.ticker, closeTime: Date.parse(m.close_time), strike: m.floor_strike || null,
+             yesAsk: px("yes_ask"), noAsk: px("no_ask"), yesBid: px("yes_bid") };
+  }
+
+  // ---------- features ----------
+  const NAMES = ["m1", "m5", "m15", "m60", "rsi", "vwap", "volume", "m5near", "m15near", "volmom", "prevwin"];
+  const EXPLAIN = {
+    m1: ["the last 1-minute move tends to continue", "the last 1-minute move tends to reverse"],
+    m5: ["5-minute momentum tends to continue", "5-minute moves tend to snap back"],
+    m15: ["15-minute trends tend to continue", "15-minute moves tend to reverse"],
+    m60: ["the 1-hour trend carries through", "price fades against the 1-hour trend"],
+    rsi: ["strong buying/selling streaks (RSI) keep going", "overbought/oversold readings (RSI) reverse"],
+    vwap: ["price stretched from its 1-hour average keeps stretching", "price stretched from its 1-hour average gets pulled back"],
+    volume: ["volume spikes lean bullish", "volume spikes lean bearish"],
+    m5near: ["when price is near the strike, 5-min momentum decides it", "when price is near the strike, 5-min moves reverse"],
+    m15near: ["when price is near the strike, the 15-min trend decides it", "when price is near the strike, the 15-min trend reverses"],
+    volmom: ["moves on heavy volume continue", "moves on heavy volume reverse"],
+    prevwin: ["the previous 15-min result tends to repeat", "the previous 15-min result tends to flip"],
+  };
+
+  // Features at grid index i (price = C[i] unless livePrice given), strike K, minutes left.
+  function features(g, i, K, minLeft, prevWin, livePrice) {
+    if (i < 61) return null;
+    const C = g.c, V = g.v;
+    const P = livePrice || C[i];
+    const at = (j) => (j === i ? P : C[j]);
+    let s = 0;
+    for (let j = i - 59; j <= i; j++) { const r = Math.log(at(j) / C[j - 1]); s += r * r; }
+    const sig = Math.sqrt(s / 60) || 1e-6;
+    const zgap = Math.log(P / K) / (sig * Math.sqrt(Math.max(minLeft, 0.25)));
+    const ret = (n) => Math.log(P / C[i - n]) / (sig * Math.sqrt(n));
+    let gain = 0, loss = 0;
+    for (let j = i - 13; j <= i; j++) { const d = at(j) - C[j - 1]; if (d > 0) gain += d; else loss -= d; }
+    let pv = 0, vv = 0, hi = -Infinity, lo = Infinity, v5 = 0;
+    for (let j = i - 59; j <= i; j++) { pv += at(j) * V[j]; vv += V[j]; hi = Math.max(hi, at(j)); lo = Math.min(lo, at(j)); }
+    for (let j = i - 4; j <= i; j++) v5 += V[j];
+    const near = Math.exp(-zgap * zgap / 2);
+    const m5 = ret(5), m15 = ret(15);
+    const volr = Math.log((v5 / 5 + 1e-6) / (vv / 60 + 1e-6));
+    const x = [
+      ret(1), m5, m15, ret(60),
+      gain + loss > 0 ? gain / (gain + loss) - 0.5 : 0,
+      vv > 0 ? Math.log(P / (pv / vv)) / (sig * Math.sqrt(15)) : 0,
+      volr,
+      m5 * near, m15 * near, Math.max(-3, Math.min(3, volr)) * m5, prevWin,
+    ];
+    return { base: logit(clip(Phi(zgap))), x, sig, zgap,
+             info: { rsi: 50 + 100 * x[4], trend60: Math.log(P / C[i - 60]) * 100, vol15: sig * Math.sqrt(15) * 100 } };
+  }
+
+  // One sample per minute (1..13) of every complete 15-minute window in the history.
+  function buildDataset(g) {
+    const rows = [];
+    for (let s = 0; s < g.t.length; s++) {
+      if (g.t[s] % WIN !== 0 || s < 76 || s + 14 >= g.t.length) continue;
+      const K = g.o[s];
+      const up = g.c[s + 14] > K ? 1 : 0;
+      const prevWin = g.c[s - 1] > g.o[s - 15] ? 1 : -1;
+      for (let e = 1; e <= 13; e++) {
+        const f = features(g, s + e - 1, K, 15 - e, prevWin);
+        if (f) rows.push({ w: g.t[s], minute: e, base: f.base, x: f.x, y: up });
+      }
+    }
+    return rows;
+  }
+
+  // ---------- learning: logistic regression on top of the price-vs-strike baseline ----------
+  function train(rows, lambda = 0.02, iters = 400) {
+    const k = NAMES.length, n = rows.length;
+    const mu = new Array(k).fill(0), sd = new Array(k).fill(0);
+    rows.forEach((r) => r.x.forEach((v, j) => (mu[j] += v / n)));
+    rows.forEach((r) => r.x.forEach((v, j) => (sd[j] += (v - mu[j]) ** 2 / n)));
+    for (let j = 0; j < k; j++) sd[j] = Math.sqrt(sd[j]) || 1;
+    const X = rows.map((r) => r.x.map((v, j) => Math.max(-5, Math.min(5, (v - mu[j]) / sd[j]))));
+    let a = 1, b = 0;
+    const w = new Array(k).fill(0);
+    for (let it = 0; it < iters; it++) {
+      let ga = 0, gb = 0;
+      const gw = new Array(k).fill(0);
+      for (let i = 0; i < n; i++) {
+        let z = a * rows[i].base + b;
+        for (let j = 0; j < k; j++) z += w[j] * X[i][j];
+        const err = sigm(z) - rows[i].y;
+        ga += err * rows[i].base; gb += err;
+        for (let j = 0; j < k; j++) gw[j] += err * X[i][j];
+      }
+      const lr = 0.5;
+      a -= lr * ga / n; b -= lr * gb / n;
+      for (let j = 0; j < k; j++) w[j] -= lr * (gw[j] / n + lambda * w[j]);
+    }
+    return { a, b, w, mu, sd };
+  }
+
+  function predict(m, base, x) {
+    let z = m.a * base + m.b;
+    for (let j = 0; j < x.length; j++) z += m.w[j] * Math.max(-5, Math.min(5, (x[j] - m.mu[j]) / m.sd[j]));
+    return clip(sigm(z));
+  }
+
+  function score(rows, pfn) {
+    let hit = 0, ll = 0;
+    const byMin = {}, byConf = {};
+    for (const r of rows) {
+      const p = pfn(r), call = p >= 0.5 ? 1 : 0, ok = call === r.y ? 1 : 0;
+      hit += ok;
+      ll -= r.y ? Math.log(p) : Math.log(1 - p);
+      (byMin[r.minute] = byMin[r.minute] || [0, 0])[0]++; byMin[r.minute][1] += ok;
+      const conf = Math.max(p, 1 - p);
+      const bucket = conf >= 0.9 ? "90%+" : conf >= 0.8 ? "80-90%" : conf >= 0.7 ? "70-80%" : conf >= 0.6 ? "60-70%" : "50-60%";
+      (byConf[bucket] = byConf[bucket] || [0, 0, 0])[0]++; byConf[bucket][1] += ok; byConf[bucket][2] += conf;
+    }
+    return { n: rows.length, acc: hit / rows.length, logloss: ll / rows.length, byMin, byConf };
+  }
+
+  // Walk-forward test: learn on the older 70% of windows, grade on the newest 30% it never saw.
+  function learn(g) {
+    const rows = buildDataset(g);
+    const windows = [...new Set(rows.map((r) => r.w))].sort((a, b) => a - b);
+    if (windows.length < 40) throw new Error("Not enough history yet (" + windows.length + " windows)");
+    const cut = windows[Math.floor(windows.length * 0.7)];
+    const tr = rows.filter((r) => r.w < cut), te = rows.filter((r) => r.w >= cut);
+    const mTest = train(tr);
+    const testModel = score(te, (r) => predict(mTest, r.base, r.x));
+    const testBase = score(te, (r) => clip(sigm(r.base)));
+    // Only use the patterns if they beat the simple model on unseen data.
+    const patternsHelp = testModel.logloss < testBase.logloss - 0.003 && testModel.acc >= testBase.acc - 0.005;
+    const full = train(rows);
+    const ups = windows.length ? rows.filter((r) => r.minute === 1).reduce((s, r) => s + r.y, 0) / windows.length : 0.5;
+    const patterns = NAMES.map((nm, j) => ({ name: nm, weight: full.w[j],
+      text: EXPLAIN[nm][full.w[j] >= 0 ? 0 : 1] }))
+      .sort((p, q) => Math.abs(q.weight) - Math.abs(p.weight));
+    return { model: full, patternsHelp, testModel, testBase, windows: windows.length,
+             testWindows: windows.length - windows.indexOf(cut), upRate: ups, patterns,
+             from: g.t[0], to: g.t[g.t.length - 1] };
+  }
+
+  // ---------- live call ----------
+  function liveCall(L, g, price, strike, secLeft, prevWin) {
+    const i = g.t.length - 1;
+    const f = features(g, i, strike, secLeft / 60, prevWin, price);
+    if (!f) return null;
+    const pBase = clip(sigm(f.base));
+    const p = L.patternsHelp ? predict(L.model, f.base, f.x) : pBase;
+    return { p, pBase, side: p >= 0.5 ? "UP" : "DOWN", conf: Math.max(p, 1 - p), info: f.info, zgap: f.zgap };
+  }
+
+  function valueCheck(p, yesAsk, noAsk, opts) {
+    const minEdge = (opts && opts.minEdge) || 0.03, buffer = (opts && opts.buffer) || 0.02;
+    const c = [];
+    if (yesAsk > 0 && yesAsk < 1) c.push({ side: "UP", buy: "YES", price: yesAsk, ev: p - yesAsk - fee(yesAsk) - buffer });
+    if (noAsk > 0 && noAsk < 1) c.push({ side: "DOWN", buy: "NO", price: noAsk, ev: 1 - p - noAsk - fee(noAsk) - buffer });
+    if (!c.length) return null;
+    c.sort((a, b) => b.ev - a.ev);
+    return { ...c[0], trade: c[0].ev >= minEdge, minEdge };
+  }
+
+  const api = { fetchCandles, fetchRaw, toGrid, spot, kalshiMarket, features, buildDataset, train, predict, score, learn,
+                liveCall, valueCheck, fee, Phi, WIN, NAMES };
+  if (typeof module !== "undefined") module.exports = api; else root.Engine = api;
+})(this);
+
+</script>
+<script>
+"use strict";
+const E = window.Engine, WIN = 900, HISTORY_MIN = 7 * 24 * 60;
+const $ = (id) => document.getElementById(id);
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+};
+const usd = (x) => x == null ? "-" : "$" + Number(x).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const cents = (x) => x == null ? "-" : Math.round(x * 100) + "¢";
+const pct = (x, d = 0) => x == null ? "-" : (x * 100).toFixed(d) + "%";
+const mmss = (s) => { s = Math.max(0, Math.floor(s)); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+
+let raw = new Map(), grid = null, L = null, price = null, K = null; // K = kalshi market
+let kalshiMode = "…", directFailed = false, lastErr = "";
+let settings = store.get("btc15settings", { relay: "", minEdge: 3 });
+
+function go(v) {
+  for (const k of ["now", "pat", "rec", "set"]) { $("v-" + k).style.display = k === v ? "" : "none"; $("n-" + k).classList.toggle("on", k === v); }
+  if (v === "rec") renderRecord();
+}
+
+// ---------- data ----------
+function saveRaw() {
+  const cutoff = Date.now() / 1000 - HISTORY_MIN * 60 - 3600;
+  for (const t of raw.keys()) if (t < cutoff) raw.delete(t);
+  store.set("btc15raw", [...raw.values()]);
+}
+async function loadHistory(force) {
+  const cached = force ? [] : store.get("btc15raw", []);
+  raw = new Map(cached.map((r) => [r[0], r]));
+  const newest = cached.length ? Math.max(...cached.map((r) => r[0])) : 0;
+  const need = newest ? Math.ceil((Date.now() / 1000 - newest) / 60) + 5 : HISTORY_MIN;
+  const rows = await E.fetchRaw(Math.min(need, HISTORY_MIN), (f) => { $("bootbar").style.width = (f * 100) + "%"; });
+  rows.forEach((r) => raw.set(r[0], r));
+  saveRaw();
+}
+async function refreshCandles() {
+  const newest = raw.size ? Math.max(...raw.keys()) : 0;
+  const need = newest ? Math.ceil((Date.now() / 1000 - newest) / 60) + 3 : HISTORY_MIN;
+  const rows = await E.fetchRaw(Math.min(Math.max(need, 5), HISTORY_MIN));
+  rows.forEach((r) => raw.set(r[0], r));
+  grid = E.toGrid([...raw.values()]);
+  saveRaw();
+}
+function relearnNow() {
+  grid = E.toGrid([...raw.values()]);
+  L = E.learn(grid);
+  L.at = Date.now();
+  renderPatterns();
+}
+async function relearn(force) {
+  $("boot").style.display = ""; $("bootmsg").textContent = "Loading a week of BTC data…";
+  try {
+    await loadHistory(force);
+    $("bootmsg").textContent = "Finding patterns…";
+    await new Promise((r) => setTimeout(r, 30));
+    relearnNow();
+    $("boot").style.display = "none";
+    if ($("v-pat").style.display === "none" && $("v-rec").style.display === "none" && $("v-set").style.display === "none") go("now");
+  } catch (e) {
+    $("bootmsg").textContent = "Couldn't load BTC data: " + e.message + ". Check your connection and reopen the app.";
+  }
+}
+
+async function fetchKalshi() {
+  if (!directFailed) {
+    try { K = await E.kalshiMarket(); kalshiMode = "live"; return; } catch (e) { directFailed = true; }
+  }
+  if (settings.relay) {
+    try { K = await E.kalshiMarket(settings.relay); kalshiMode = "relay"; return; } catch (e) { lastErr = "Relay: " + e.message; }
+  }
+  K = null; kalshiMode = "manual";
+}
+
+// ---------- live ----------
+function currentWindow() {
+  const now = Date.now() / 1000;
+  const w = Math.floor(now / WIN) * WIN;
+  return { now, w, secLeft: w + WIN - now };
+}
+function manualFor(w) { const m = store.get("btc15manual", {}); return m.w === w ? m : { w }; }
+function saveManual() {
+  const { w } = currentWindow();
+  const num = (id) => { const v = parseFloat($(id).value); return isFinite(v) ? v : null; };
+  store.set("btc15manual", { w, yes: num("in-yes"), no: num("in-no"), strike: num("in-strike") });
+  render();
+}
+["in-yes", "in-no", "in-strike"].forEach((id) => $(id).addEventListener("input", saveManual));
+
+function strikeFor(w, man) {
+  if (man.strike) return { v: man.strike, src: "you entered" };
+  if (K && K.strike && Math.abs(K.closeTime / 1000 - (w + WIN)) < 5) return { v: K.strike, src: "Kalshi" };
+  const r = raw.get(w);
+  if (r) return { v: r[3], src: "Coinbase at open ≈" };
+  return null;
+}
+
+let lastCall = null;
+function render() {
+  if (!L || !grid || price == null) return;
+  const { w, secLeft } = currentWindow();
+  const man = manualFor(w);
+  const st = strikeFor(w, man);
+  $("src").className = "pill " + kalshiMode;
+  $("src").textContent = { live: "KALSHI LIVE", relay: "KALSHI VIA RELAY", manual: "MANUAL PRICES" }[kalshiMode] || "…";
+  $("err").textContent = lastErr;
+  $("timer").textContent = mmss(secLeft);
+  const minute = Math.min(15, Math.floor((WIN - secLeft) / 60) + 1);
+  $("minute").textContent = minute + "/15";
+  $("spot").textContent = usd(price);
+  if (!st) { $("side").textContent = "WAIT"; $("side").className = "big NO"; $("sidesub").textContent = "Waiting for the market's opening price."; return; }
+  $("strike").textContent = usd(st.v) + "  ·  " + st.src;
+  const gap = price - st.v;
+  $("gap").textContent = (gap >= 0 ? "+" : "") + usd(gap).replace("$-", "-$");
+  $("gap").style.color = gap >= 0 ? "var(--up)" : "var(--down)";
+
+  const prev = raw.get(w - 60), prevOpen = raw.get(w - WIN);
+  const prevWin = prev && prevOpen ? (prev[4] > prevOpen[3] ? 1 : -1) : 0;
+  const c = E.liveCall(L, grid, price, st.v, secLeft, prevWin);
+  if (!c) return;
+  lastCall = { w, c, strike: st.v };
+  $("side").textContent = c.side + " " + pct(c.conf);
+  $("side").className = "big " + c.side;
+  $("pbar").style.width = (c.p * 100) + "%";
+  const late = hitRateFrom(10);
+  const strong = c.conf >= 0.8 ? "Strong call." : c.conf >= 0.65 ? "Moderate call." : "Close to a coin flip.";
+  $("sidesub").textContent = strong + (minute < 10 && late ? ` Calls get sharper later: from minute 10 on they hit ${pct(late)} this week.` : "") +
+    (L.patternsHelp ? " Using price math + this week's patterns." : " Using price-vs-strike math (no pattern beat it this week).");
+
+  // value check
+  const yes = K && kalshiMode !== "manual" ? K.yesAsk : (man.yes != null ? man.yes / 100 : null);
+  const no = K && kalshiMode !== "manual" ? K.noAsk : (man.no != null ? man.no / 100 : null);
+  $("manualbox").style.display = kalshiMode === "manual" ? "" : "none";
+  $("asks").textContent = cents(yes) + " / " + cents(no);
+  $("fair").textContent = "YES " + cents(c.p) + " / NO " + cents(1 - c.p);
+  const v = (yes || no) ? E.valueCheck(c.p, yes, no, { minEdge: (settings.minEdge || 3) / 100 }) : null;
+  if (!v) { $("verdict").textContent = "Need Kalshi prices"; $("verdict").className = "verdict NO";
+            $("verdictsub").textContent = "Enter the YES and NO prices from Kalshi below."; }
+  else if (secLeft < 45) { $("verdict").textContent = "TOO LATE"; $("verdict").className = "verdict NO";
+            $("verdictsub").textContent = "Under 45 seconds left — prices are stale and fills are unreliable."; }
+  else if (v.trade) { $("verdict").textContent = `BUY ${v.buy} at ${cents(v.price)}`; $("verdict").className = "verdict " + v.side;
+            $("verdictsub").textContent = `Edge +${(v.ev * 100).toFixed(1)}¢ per contract after fees and a 2¢ safety buffer.`; }
+  else { $("verdict").textContent = "NO VALUE"; $("verdict").className = "verdict NO";
+         $("verdictsub").textContent = `Kalshi already prices this in (best edge ${(v.ev * 100).toFixed(1)}¢, need ${settings.minEdge || 3}¢). Skipping is the winning move here.`; }
+
+  logCall(w, secLeft, c, st.v, v && v.trade && secLeft >= 45 ? v : null);
+  // regime
+  $("r-trend").textContent = (c.info.trend60 >= 0 ? "+" : "") + c.info.trend60.toFixed(2) + "%";
+  $("r-rsi").textContent = c.info.rsi.toFixed(0) + (c.info.rsi > 70 ? " (hot)" : c.info.rsi < 30 ? " (cold)" : "");
+  $("r-vol").textContent = "±" + c.info.vol15.toFixed(2) + "%  (≈" + usd(price * c.info.vol15 / 100) + ")";
+}
+
+function hitRateFrom(minFrom) {
+  if (!L) return null;
+  let n = 0, h = 0;
+  const bm = (L.patternsHelp ? L.testModel : L.testBase).byMin;
+  for (const [m, v] of Object.entries(bm)) if (+m >= minFrom) { n += v[0]; h += v[1]; }
+  return n ? h / n : null;
+}
+
+// ---------- record ----------
+function logCall(w, secLeft, c, strike, v) {
+  const log = store.get("btc15log", []);
+  let e = log.find((x) => x.w === w);
+  if (!e && (secLeft <= 300 || v)) { e = { w, strike, side: null, p: null, buy: null, price: null, up: null }; log.push(e); }
+  if (!e) return;
+  if (secLeft <= 300 && !e.side) { e.side = c.side; e.p = c.p; }
+  if (v && !e.buy) { e.buy = v.side; e.price = v.price; }
+  store.set("btc15log", log.slice(-500));
+}
+function resolveLog() {
+  const log = store.get("btc15log", []);
+  let changed = false;
+  for (const e of log) {
+    if (e.up != null) continue;
+    const last = raw.get(e.w + WIN - 60);
+    if (last && Date.now() / 1000 > e.w + WIN + 30) { e.up = last[4] > e.strike; changed = true; }
+  }
+  if (changed) store.set("btc15log", log);
+}
+function clearLog() { store.set("btc15log", []); renderRecord(); }
+function renderRecord() {
+  const log = store.get("btc15log", []);
+  const done = log.filter((e) => e.up != null);
+  const leans = done.filter((e) => e.side);
+  const hits = leans.filter((e) => (e.side === "UP") === e.up).length;
+  const buys = done.filter((e) => e.buy);
+  let won = 0, pnl = 0;
+  for (const b of buys) { const ok = (b.buy === "UP") === b.up; won += ok; pnl += (ok ? 1 - b.price : -b.price) - E.fee(b.price); }
+  $("s-lean").textContent = leans.length ? `${pct(hits / leans.length)} (${hits}/${leans.length})` : "no data yet";
+  $("s-buys").textContent = buys.length;
+  $("s-won").textContent = buys.length ? `${won} (${pct(won / buys.length)})` : "-";
+  $("s-pnl").textContent = buys.length ? (pnl >= 0 ? "+" : "-") + "$" + Math.abs(pnl).toFixed(2) : "-";
+  $("s-pnl").style.color = pnl >= 0 ? "var(--up)" : "var(--down)";
+  $("logtable").innerHTML = "<tr><th>Market</th><th>Call</th><th>Buy</th><th class='r'>Result</th></tr>" +
+    log.slice(-30).reverse().map((e) => {
+      const t = new Date((e.w + WIN) * 1000).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+      const res = e.up == null ? "…" : e.up ? "UP" : "DOWN";
+      const mark = (s) => e.up == null || !s ? "" : ((s === "UP") === e.up ? " ✓" : " ✗");
+      return `<tr><td>${t}</td><td class="${e.side || ""}">${e.side ? e.side + " " + pct(Math.max(e.p, 1 - e.p)) + mark(e.side) : "-"}</td>
+              <td>${e.buy ? (e.buy === "UP" ? "YES" : "NO") + " " + cents(e.price) + mark(e.buy) : "-"}</td><td class="r">${res}</td></tr>`;
+    }).join("");
+}
+
+// ---------- patterns view ----------
+function renderPatterns() {
+  const T = L.patternsHelp ? L.testModel : L.testBase;
+  const days = ((L.to - L.from) / 86400).toFixed(1);
+  if (L.patternsHelp) {
+    $("patverdict").textContent = "Patterns found ✓"; $("patverdict").className = "verdict UP";
+    $("patsub").textContent = `These improved predictions on the newest ${L.testWindows} markets, which the app hadn't learned from. They're switched ON.`;
+  } else {
+    $("patverdict").textContent = "No reliable patterns"; $("patverdict").className = "verdict NO";
+    $("patsub").textContent = `None of the trend/momentum patterns beat simple price-vs-strike math on the newest ${L.testWindows} markets, so they're switched OFF. That protects you from fake patterns. Weak tendencies seen:`;
+  }
+  const top = L.patterns.slice(0, 4), mx = Math.abs(top[0].weight) || 1;
+  $("patlist").innerHTML = top.map((p) => `<div class="pat">${p.text}<span class="strength" style="width:${Math.max(6, 60 * Math.abs(p.weight) / mx)}px"></span></div>`).join("") +
+    `<div class="note">Learned from ${L.windows} markets over ${days} days. Relearns every hour.</div>`;
+  const bm = T.byMin;
+  $("minbars").innerHTML = Array.from({ length: 13 }, (_, i) => {
+    const v = bm[i + 1]; const r = v ? v[1] / v[0] : 0;
+    return `<div class="${r >= 0.8 ? "hot" : ""}" style="height:${Math.max(4, (r - 0.4) / 0.6 * 100)}%" title="${pct(r)}"><span>${i + 1}</span></div>`;
+  }).join("");
+  const order = ["50-60%", "60-70%", "70-80%", "80-90%", "90%+"];
+  $("conftable").innerHTML = "<tr><th>App said</th><th class='r'>Calls</th><th class='r'>Avg said</th><th class='r'>Hit</th></tr>" +
+    order.filter((k) => T.byConf[k]).map((k) => { const v = T.byConf[k];
+      return `<tr><td>${k}</td><td class="r">${v[0]}</td><td class="r">${pct(v[2] / v[0])}</td><td class="r">${pct(v[1] / v[0])}</td></tr>`; }).join("");
+  $("r-up").textContent = pct(L.upRate);
+}
+
+// ---------- settings ----------
+function saveSettings() {
+  settings = { relay: $("in-relay").value.trim(), minEdge: parseFloat($("in-edge").value) || 3 };
+  store.set("btc15settings", settings);
+  $("saved").textContent = "Saved";
+  setTimeout(() => ($("saved").textContent = ""), 1500);
+  fetchKalshi().then(render);
+}
+$("in-relay").value = settings.relay || "";
+$("in-edge").value = settings.minEdge || 3;
+
+// ---------- loops ----------
+async function fastTick() {
+  try { price = await E.spot(); lastErr = ""; } catch (e) { lastErr = "BTC price: " + e.message; }
+  await fetchKalshi();
+  render();
+}
+async function slowTick() {
+  try { await refreshCandles(); resolveLog(); if (L && Date.now() - L.at > 3600e3) relearnNow(); } catch (e) { lastErr = "Candles: " + e.message; }
+}
+(function restoreManual() {
+  const m = manualFor(currentWindow().w);
+  if (m.yes != null) $("in-yes").value = m.yes;
+  if (m.no != null) $("in-no").value = m.no;
+  if (m.strike != null) $("in-strike").value = m.strike;
+})();
+let lastW = currentWindow().w;
+setInterval(() => {
+  const { w, secLeft } = currentWindow();
+  $("timer").textContent = mmss(secLeft);
+  if (w !== lastW) { lastW = w; ["in-yes", "in-no", "in-strike"].forEach((id) => ($(id).value = "")); slowTick().then(render); }
+}, 500);
+
+(async function start() {
+  await relearn(false);
+  await fastTick();
+  resolveLog();
+  setInterval(fastTick, 5000);
+  setInterval(slowTick, 20000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) { slowTick().then(fastTick); } });
+})();
+</script>
+</body>
+</html>
