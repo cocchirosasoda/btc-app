@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Arb Finder">
+<meta name="theme-color" content="#0b0d10">
+<title>Arb Finder</title>
+<style>
+  :root { --bg:#0b0d10; --card:#14181d; --line:#232a31; --text:#e8edf2; --dim:#8a96a3;
+          --up:#2fd67b; --down:#ff5c6c; --flat:#d4ab2a; --blue:#5aa9ff; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body { background:var(--bg); }
+  body { margin:0; color:var(--text); font:15px/1.4 -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+         padding: calc(env(safe-area-inset-top) + 12px) 14px calc(env(safe-area-inset-bottom) + 84px); max-width:720px; margin:0 auto; }
+  h1 { font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); margin:0 0 10px; font-weight:600; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; margin-bottom:12px; }
+  .label { color:var(--dim); font-size:12px; text-transform:uppercase; letter-spacing:.06em; font-weight:600; }
+  .sub { color:var(--dim); font-size:13px; margin-top:4px; }
+  .big { font-size:26px; font-weight:800; }
+  .row { display:flex; justify-content:space-between; gap:10px; padding:8px 0; border-bottom:1px solid var(--line); align-items:center; }
+  .row:last-child { border-bottom:0; }
+  .num { font-variant-numeric:tabular-nums; font-weight:600; text-align:right; }
+  .good { color:var(--up); } .warn { color:var(--flat); } .bad { color:var(--down); }
+  input, select { width:100%; background:#0e1115; color:var(--text); border:1px solid var(--line); border-radius:10px;
+          padding:10px; font:inherit; font-variant-numeric:tabular-nums; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  label.f { font-size:12px; color:var(--dim); display:block; margin:10px 0 4px; }
+  .btn { background:var(--blue); color:#06121f; border:0; border-radius:12px; padding:12px 14px; font:inherit; font-weight:800; width:100%; }
+  .btn.sec { background:#1c232b; color:var(--text); border:1px solid var(--line); font-weight:600; }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
+  .chip { border:1px solid var(--line); border-radius:20px; padding:6px 10px; font-size:13px; color:var(--dim); user-select:none; }
+  .chip.on { color:var(--text); border-color:var(--blue); background:#12243a; }
+  .opp { border-left:4px solid var(--up); }
+  .opp.near { border-left-color:var(--flat); }
+  .leg { display:flex; justify-content:space-between; gap:8px; padding:7px 0; border-bottom:1px solid var(--line); }
+  .leg:last-of-type { border-bottom:0; }
+  .tag { font-size:11px; font-weight:700; padding:2px 7px; border-radius:20px; border:1px solid var(--line); color:var(--dim); white-space:nowrap; }
+  .note { color:var(--dim); font-size:12px; margin-top:10px; line-height:1.5; }
+  .nav { position:fixed; left:0; right:0; bottom:0; display:flex; background:rgba(11,13,16,.96); border-top:1px solid var(--line);
+         padding: 8px 8px calc(env(safe-area-inset-bottom) + 8px); backdrop-filter: blur(10px); }
+  .nav button { flex:1; background:none; border:0; color:var(--dim); font:inherit; font-size:12px; font-weight:600; padding:6px 0; }
+  .nav button b { display:block; font-size:19px; margin-bottom:2px; }
+  .nav button.on { color:var(--text); }
+  .err { color:var(--down); font-size:13px; margin:8px 0; }
+  a { color:var(--blue); }
+</style>
+</head>
+<body>
+<h1>Arb Finder · Kalshi · DraftKings · Underdog</h1>
+
+<!-- SCAN -->
+<section id="v-scan">
+  <div class="card">
+    <div class="row" style="padding-top:0"><span class="label">Last scan</span><span id="lastscan" class="num">never</span></div>
+    <div class="row"><span class="label">API credits left</span><span id="credits" class="num">-</span></div>
+    <div style="margin-top:10px"><button id="scanbtn" class="btn" onclick="scan()">Scan now</button></div>
+    <div id="scanmsg" class="sub"></div>
+    <div id="err" class="err"></div>
+  </div>
+  <div id="results"></div>
+</section>
+
+<!-- CHECK -->
+<section id="v-check" style="display:none">
+  <div class="card">
+    <div class="label">Quick arb check</div>
+    <div class="sub">Type the price for each team from any app (DraftKings Predictions, Underdog, Kalshi…).
+      Use cents (43), decimal odds (2.32) or American odds (+132 / -150).</div>
+    <div class="grid2">
+      <div><label class="f">Team A price</label><input id="c-a" inputmode="decimal" placeholder="e.g. 43 or 2.32"></div>
+      <div><label class="f">Team A app</label><select id="c-av"></select></div>
+      <div><label class="f">Team B price</label><input id="c-b" inputmode="decimal" placeholder="e.g. 40 or 2.5"></div>
+      <div><label class="f">Team B app</label><select id="c-bv"></select></div>
+    </div>
+    <label class="f">Total to put in ($)</label><input id="c-t" inputmode="decimal" value="200">
+    <div id="c-out" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<!-- SETTINGS -->
+<section id="v-set" style="display:none">
+  <div class="card">
+    <div class="label">Odds API key</div>
+    <div class="sub">Free at <a href="https://the-odds-api.com">the-odds-api.com</a> (500 credits/month). Each sport you scan costs 1 credit.
+      The key is saved only on this phone.</div>
+    <input id="s-key" style="margin-top:8px" placeholder="paste your API key" autocomplete="off">
+    <label class="f">Sports to scan (all are always-a-winner markets: full game incl. overtime/extra innings)</label>
+    <div id="s-sports" class="chips"></div>
+    <label class="f">Apps to compare</label>
+    <div id="s-venues" class="chips"></div>
+    <div class="note">DraftKings here = DraftKings <b>Sportsbook</b> odds from other states. In California you can only use
+      DraftKings Predictions, whose prices are often close but not identical: treat a DraftKings arb as a lead and confirm the
+      real price in the Check tab. No odds feed publishes Underdog's prediction prices, so check those in the Check tab too.</div>
+    <div class="grid2">
+      <div><label class="f">Total stake per arb ($)</label><input id="s-stake" inputmode="decimal"></div>
+      <div><label class="f">Show gaps of at least (% profit; use -2 to also see near misses)</label><input id="s-min" inputmode="decimal"></div>
+    </div>
+    <label class="f">Ignore prices older than (minutes)</label><input id="s-age" inputmode="numeric">
+    <div style="margin-top:12px"><button class="btn" onclick="saveSettings()">Save</button></div>
+    <div id="s-saved" class="sub"></div>
+  </div>
+</section>
+
+<nav class="nav">
+  <button id="n-scan" class="on" onclick="go('scan')"><b>⌕</b>Scan</button>
+  <button id="n-check" onclick="go('check')"><b>⇄</b>Check</button>
+  <button id="n-set" onclick="go('set')"><b>⚙</b>Settings</button>
+</nav>
+
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const API = "https://api.the-odds-api.com/v4";
+
+// Venues. fee(price) = cost added per $1 contract (prediction markets) ; sportsbooks have the fee in the odds.
+const VENUES = {
+  kalshi:        { name: "Kalshi", kind: "market", fee: (p) => Math.ceil(0.07 * p * (1 - p) * 100 - 1e-9) / 100 },
+  draftkings:    { name: "DraftKings", kind: "book", note: "Sportsbook odds; confirm on DK Predictions" },
+  polymarket_us: { name: "Polymarket US", kind: "market", fee: () => 0 },
+  novig:         { name: "Novig", kind: "market", fee: () => 0 },
+  prophetx:      { name: "ProphetX", kind: "market", fee: () => 0 },
+  fanduel:       { name: "FanDuel", kind: "book", note: "Sportsbook odds; confirm on FanDuel Predicts" },
+};
+const CHECK_VENUES = ["Kalshi", "DraftKings Predictions", "Underdog", "Polymarket US", "FanDuel Predicts", "Other (no fee)"];
+
+// Two-outcome, full-game markets only. NFL can tie in rare regular-season games; tennis has retirement rules.
+const SPORTS = [
+  { key: "basketball_nba", name: "NBA" },
+  { key: "basketball_ncaab", name: "College BB" },
+  { key: "basketball_wnba", name: "WNBA" },
+  { key: "americanfootball_nfl", name: "NFL", warn: "NFL regular-season games can end in a tie (rare). Check how each app settles a tie." },
+  { key: "americanfootball_ncaaf", name: "College FB" },
+  { key: "baseball_mlb", name: "MLB" },
+  { key: "tennis", name: "Tennis (all)", warn: "If a player retires mid-match, apps can settle differently. Check both apps' retirement rules." },
+];
+
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+};
+let S = Object.assign({ key: "", sports: ["basketball_nba", "basketball_ncaab", "americanfootball_nfl", "baseball_mlb", "tennis"],
+  venues: ["kalshi", "draftkings", "polymarket_us", "novig", "prophetx"], stake: 200, minPct: 0, maxAge: 10 }, store.get("arbsettings", {}));
+
+function go(v) { for (const k of ["scan", "check", "set"]) { $("v-" + k).style.display = k === v ? "" : "none"; $("n-" + k).classList.toggle("on", k === v); } }
+const usd = (x) => "$" + x.toFixed(2);
+const fmtOdds = (d) => d.toFixed(2) + "x";
+const cents = (p) => Math.round(p * 100) + "¢";
+
+// ---------- math ----------
+// Effective decimal odds after fees for a venue, given the listed decimal odds.
+function effOdds(venueKey, dec) {
+  const v = VENUES[venueKey];
+  if (v && v.kind === "market" && v.fee) { const p = 1 / dec; return 1 / (p + v.fee(p)); }
+  return dec;
+}
+// Stakes that pay the same whichever side wins.
+function splitStakes(oddsA, oddsB, total) {
+  const inv = 1 / oddsA + 1 / oddsB;
+  const stakeA = total * (1 / oddsA) / inv, stakeB = total - stakeA;
+  const payout = stakeA * oddsA;
+  return { stakeA, stakeB, payout, profit: payout - total, pct: (1 / inv - 1) * 100 };
+}
+
+// ---------- scan ----------
+async function fetchSportKeys() {
+  const want = S.sports.filter((k) => k !== "tennis");
+  if (!S.sports.includes("tennis")) return want;
+  const r = await fetch(`${API}/sports?apiKey=${encodeURIComponent(S.key)}`); // free: costs no credits
+  if (!r.ok) throw new Error(await apiError(r));
+  const all = await r.json();
+  return want.concat(all.filter((s) => s.active && s.group === "Tennis").map((s) => s.key));
+}
+async function apiError(r) {
+  let msg = "HTTP " + r.status;
+  try { const j = await r.json(); if (j.message) msg = j.message; } catch (e) {}
+  if (r.status === 401) msg = "API key not accepted. Check it in Settings.";
+  if (r.status === 429) msg = "Out of API credits or too many requests.";
+  return msg;
+}
+
+async function scan() {
+  $("err").textContent = "";
+  if (!S.key) { $("err").textContent = "Add your free Odds API key in Settings first."; go("set"); return; }
+  $("scanbtn").disabled = true; $("scanbtn").textContent = "Scanning…";
+  const found = [];
+  try {
+    const keys = await fetchSportKeys();
+    let i = 0;
+    for (const sk of keys) {
+      i++; $("scanmsg").textContent = `Checking ${sk} (${i}/${keys.length})…`;
+      const url = `${API}/sports/${sk}/odds?apiKey=${encodeURIComponent(S.key)}&markets=h2h&oddsFormat=decimal&bookmakers=${S.venues.join(",")}`;
+      const r = await fetch(url);
+      if (!r.ok) { if (r.status === 404 || r.status === 422) continue; throw new Error(await apiError(r)); }
+      const rem = r.headers.get("x-requests-remaining");
+      if (rem != null) { $("credits").textContent = Math.round(+rem); store.set("arbcredits", Math.round(+rem)); }
+      const events = await r.json();
+      for (const ev of events) found.push(...findArbs(ev, sk));
+    }
+    found.sort((a, b) => b.pct - a.pct);
+    store.set("arblast", { t: Date.now(), found });
+    render(found, Date.now());
+    $("scanmsg").textContent = `Checked ${keys.length} sport feeds.`;
+  } catch (e) {
+    $("err").textContent = (e.message === "Failed to fetch") ? "Couldn't reach the odds service. Check your connection." : e.message;
+  } finally { $("scanbtn").disabled = false; $("scanbtn").textContent = "Scan now"; }
+}
+
+function findArbs(ev, sportKey) {
+  const now = Date.now(), out = [];
+  const sides = [ev.home_team, ev.away_team];
+  const best = {}; // team -> list of {venue, odds, eff, age}
+  for (const bk of ev.bookmakers || []) {
+    const m = (bk.markets || []).find((x) => x.key === "h2h");
+    if (!m) continue;
+    if (m.outcomes.length !== 2 || m.outcomes.some((o) => /draw|tie/i.test(o.name))) continue; // must have one sure winner
+    const age = (now - Date.parse(m.last_update || bk.last_update)) / 60000;
+    if (age > S.maxAge) continue;
+    for (const o of m.outcomes) {
+      if (!sides.includes(o.name) || !(o.price > 1)) continue;
+      (best[o.name] = best[o.name] || []).push({ venue: bk.key, odds: o.price, eff: effOdds(bk.key, o.price), age });
+    }
+  }
+  const A = best[sides[0]] || [], B = best[sides[1]] || [];
+  let top = null;
+  for (const a of A) for (const b of B) {
+    if (a.venue === b.venue) continue; // one app won't let you hold both sides
+    const s = splitStakes(a.eff, b.eff, S.stake);
+    if (!top || s.pct > top.pct) top = { a, b, ...s };
+  }
+  if (top && top.pct >= S.minPct) {
+    const sport = SPORTS.find((x) => x.key === sportKey) || (sportKey.startsWith("tennis") ? SPORTS.find((x) => x.key === "tennis") : null);
+    out.push({ id: ev.id, sport: ev.sport_title || sportKey, warn: sport && sport.warn, start: ev.commence_time,
+               teamA: sides[0], teamB: sides[1], ...top });
+  }
+  return out;
+}
+
+function render(found, t) {
+  $("lastscan").textContent = t ? new Date(t).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) : "never";
+  const c = store.get("arbcredits", null); if (c != null) $("credits").textContent = c;
+  if (!found) { $("results").innerHTML = ""; return; }
+  if (!found.length) {
+    $("results").innerHTML = `<div class="card"><div class="big warn">No gaps right now</div>
+      <div class="sub">No game had prices that lock in a profit after fees. That's the usual result: real arbs are rare
+      and close within minutes. Scan again closer to game time or during live games.</div></div>`;
+    return;
+  }
+  $("results").innerHTML = found.map((o) => {
+    const live = Date.parse(o.start) < Date.now();
+    const when = live ? "LIVE" : new Date(o.start).toLocaleString([], { weekday: "short", hour: "numeric", minute: "2-digit" });
+    const books = [o.a, o.b].filter((x) => VENUES[x.venue] && VENUES[x.venue].kind === "book");
+    const isArb = o.pct > 0;
+    const suspicious = o.pct > 8;
+    const leg = (team, x, stake) => `<div class="leg"><div><b>${esc(team)}</b>
+        <div class="sub">${venueName(x.venue)} · ${fmtOdds(x.odds)} (${cents(1 / x.odds)})${Math.abs(x.eff - x.odds) > 1e-9 ? " · after fee " + fmtOdds(x.eff) : ""} · ${x.age < 1 ? "just now" : Math.round(x.age) + " min old"}</div></div>
+        <div class="num">bet ${usd(stake)}</div></div>`;
+    return `<div class="card opp ${isArb ? "" : "near"}">
+      <div class="row" style="padding-top:0"><span class="tag">${esc(o.sport)} · ${when}</span>
+        <span class="num ${isArb ? "good" : "warn"}" style="font-size:20px">${isArb ? "+" : ""}${o.pct.toFixed(2)}%</span></div>
+      ${leg(o.teamA, o.a, o.stakeA)}
+      ${leg(o.teamB, o.b, o.stakeB)}
+      <div class="row"><span class="sub">Either team wins → you get back</span><span class="num ${isArb ? "good" : "bad"}">${usd(o.payout)} (${o.profit >= 0 ? "+" : "-"}${usd(Math.abs(o.profit))})</span></div>
+      ${books.length ? `<div class="note warn">⚠ ${books.map((x) => venueName(x.venue)).join(" & ")} price is from its sportsbook. In California, check the real price on its Predictions app first (Check tab).</div>` : ""}
+      ${o.warn ? `<div class="note warn">⚠ ${o.warn}</div>` : ""}
+      ${suspicious ? `<div class="note bad">⚠ A gap this big is usually a stale price, a data error or a different market. Confirm both prices in the apps before betting.</div>` : ""}
+    </div>`;
+  }).join("") + `<div class="note">Before betting: open both apps, confirm both prices are still there, place the side with less money available first (usually the prediction market), then the other side right away.</div>`;
+}
+function venueName(k) { return VENUES[k] ? VENUES[k].name : k; }
+function esc(x) { return String(x).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+
+// ---------- quick check ----------
+// Accepts cents (1-99), decimal odds (1.01-50) or American odds (+132 / -150). Returns decimal odds.
+function parsePrice(str) {
+  const t = String(str).trim().replace(/[¢$x]/gi, "");
+  if (!t) return null;
+  const n = parseFloat(t);
+  if (!isFinite(n)) return null;
+  if (/^[+-]/.test(t) && Math.abs(n) >= 100) return n > 0 ? 1 + n / 100 : 1 + 100 / Math.abs(n);
+  if (n > 0 && n < 1) return 1 / n;                               // dollars like 0.43
+  if (n > 1 && n < 50 && t.includes(".")) return n;              // decimal odds like 2.32
+  if (n >= 1 && n <= 99) return 100 / n;                          // cents like 43
+  if (n > 1 && n < 50) return n;
+  return null;
+}
+const CHECK_FEES = { "Kalshi": "kalshi" };
+function check() {
+  const a = parsePrice($("c-a").value), b = parsePrice($("c-b").value), total = parseFloat($("c-t").value) || 0;
+  if (!a || !b || !total) { $("c-out").innerHTML = `<div class="sub">Enter both prices to see if it's an arb.</div>`; return; }
+  const ea = CHECK_FEES[$("c-av").value] ? effOdds(CHECK_FEES[$("c-av").value], a) : a;
+  const eb = CHECK_FEES[$("c-bv").value] ? effOdds(CHECK_FEES[$("c-bv").value], b) : b;
+  const s = splitStakes(ea, eb, total);
+  const sum = 1 / ea + 1 / eb;
+  $("c-out").innerHTML = `
+    <div class="big ${s.pct > 0 ? "good" : "bad"}">${s.pct > 0 ? "ARB ✓ +" + s.pct.toFixed(2) + "%" : "No arb (" + s.pct.toFixed(2) + "%)"}</div>
+    <div class="sub">Combined price ${(sum * 100).toFixed(1)}¢ per $1 payout ${s.pct > 0 ? "— under $1, so you profit either way." : "— over $1, so you'd lose money either way."}</div>
+    <div class="row"><span>Bet on Team A (${esc($("c-av").value)}, ${fmtOdds(a)})</span><span class="num">${usd(s.stakeA)}</span></div>
+    <div class="row"><span>Bet on Team B (${esc($("c-bv").value)}, ${fmtOdds(b)})</span><span class="num">${usd(s.stakeB)}</span></div>
+    <div class="row"><span>Either team wins → you get back</span><span class="num ${s.pct > 0 ? "good" : "bad"}">${usd(s.payout)} (${s.profit >= 0 ? "+" : "-"}${usd(Math.abs(s.profit))})</span></div>
+    <div class="note">Kalshi's trading fee is included. For other apps, check whether they charge a fee and that both apps settle the game the same way (full game incl. overtime).</div>`;
+}
+for (const id of ["c-av", "c-bv"]) $(id).innerHTML = CHECK_VENUES.map((v) => `<option>${v}</option>`).join("");
+$("c-av").value = "Kalshi"; $("c-bv").value = "DraftKings Predictions";
+for (const id of ["c-a", "c-b", "c-t", "c-av", "c-bv"]) $(id).addEventListener("input", check);
+check();
+
+// ---------- settings ----------
+function chips(el, items, selected) {
+  el.innerHTML = items.map(([k, label]) => `<span class="chip ${selected.includes(k) ? "on" : ""}" data-k="${k}">${label}</span>`).join("");
+  el.querySelectorAll(".chip").forEach((c) => c.addEventListener("click", () => c.classList.toggle("on")));
+}
+const picked = (el) => [...el.querySelectorAll(".chip.on")].map((c) => c.dataset.k);
+function loadSettingsForm() {
+  $("s-key").value = S.key; $("s-stake").value = S.stake; $("s-min").value = S.minPct; $("s-age").value = S.maxAge;
+  chips($("s-sports"), SPORTS.map((x) => [x.key, x.name]), S.sports);
+  chips($("s-venues"), Object.entries(VENUES).map(([k, v]) => [k, v.name + (v.kind === "book" ? " (sportsbook)" : "")]), S.venues);
+}
+function saveSettings() {
+  S = { key: $("s-key").value.trim(), sports: picked($("s-sports")), venues: picked($("s-venues")),
+        stake: parseFloat($("s-stake").value) || 200, minPct: parseFloat($("s-min").value) || 0,
+        maxAge: parseFloat($("s-age").value) || 10 };
+  if (S.venues.length < 2) { $("s-saved").textContent = "Pick at least two apps."; return; }
+  store.set("arbsettings", S);
+  $("s-saved").textContent = "Saved. Scanning " + S.sports.length + " sport group(s) costs about " + S.sports.length + "+ credits.";
+}
+loadSettingsForm();
+const last = store.get("arblast", null);
+if (last) render(last.found, last.t); else render(null, null);
+if (!S.key) go("set");
+</script>
+
+</body>
+</html>
